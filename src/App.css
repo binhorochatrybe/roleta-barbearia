@@ -1,0 +1,480 @@
+/* Reset e configurações globais */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: #e0e0e0;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.barbershop-logo {
+  height: 80px;
+  width: auto;
+  max-width: 200px;
+  filter: brightness(1) contrast(1);
+  transition: all 0.3s ease;
+}
+
+.barbershop-logo:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1) contrast(1.1);
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #ffffff;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.header p {
+  font-size: 1.1rem;
+  color: #888888;
+  font-weight: 300;
+}
+
+/* Container da roleta */
+.wheel-container {
+  position: relative;
+  margin: 40px 0;
+}
+
+.wheel {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  position: relative;
+  border: 3px solid #333333;
+  transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+  overflow: hidden;
+}
+
+.wheel-segment {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  transform-origin: 100% 100%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prize-text {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform-origin: 0 0;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+  white-space: nowrap;
+}
+
+/* Ponteiro da roleta */
+.wheel-pointer {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 30px solid #ffffff;
+  z-index: 10;
+}
+
+/* Controles */
+.controls {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.spin-button {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+  color: #ffffff;
+  border: 2px solid #333333;
+  padding: 18px 40px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.spin-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.spin-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%);
+  border-color: #555555;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.spin-button:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.spin-button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.spin-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Mensagem de já jogado */
+.already-played-message {
+  text-align: center;
+  padding: 24px;
+  border: 2px solid #333333;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.already-played-message p {
+  margin: 10px 0;
+  color: #888888;
+}
+
+.session-info {
+  font-size: 0.8rem;
+  color: #555555 !important;
+  font-family: monospace;
+}
+
+.clear-button {
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%);
+  color: #ffffff;
+  border: 1px solid #444444;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.clear-button:hover {
+  background: linear-gradient(135deg, #3a3a3a 0%, #4a4a4a 50%, #3a3a3a 100%);
+  border-color: #666666;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.prize-note {
+  font-size: 0.9rem;
+  color: #888888;
+  margin-top: 15px;
+  font-style: italic;
+}
+
+/* Instruções do Instagram */
+.instagram-instructions {
+  margin-top: 25px;
+  padding: 24px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%);
+  border: 2px solid #333333;
+  text-align: left;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.instagram-instructions h3 {
+  color: #ffffff;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.instagram-instructions ol {
+  margin: 0;
+  padding-left: 20px;
+  color: #e0e0e0;
+}
+
+.instagram-instructions li {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.instagram-instructions strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.instagram-instructions .prize-note {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #ff6b6b;
+  font-weight: 500;
+}
+
+.instagram-link-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 14px 24px;
+  border: 2px solid #333333;
+  margin-top: 15px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-align: center;
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.instagram-link-button:hover {
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%);
+  border-color: #555555;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal de resultado */
+.result-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.result-content {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+  color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  border: 2px solid #333333;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.result-content h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: 300;
+}
+
+.prize-result {
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%);
+  color: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 20px 0;
+  border: 2px solid #444444;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.reset-button {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+  color: #ffffff;
+  border: 2px solid #333333;
+  padding: 14px 28px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  font-weight: 500;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.reset-button:hover {
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%);
+  border-color: #555555;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Seção do Instagram */
+.instagram-section {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.instagram-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid #333333;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.instagram-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.instagram-button:hover {
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%);
+  border-color: #555555;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.instagram-button:hover::before {
+  left: 100%;
+}
+
+.instagram-icon {
+  font-size: 1.3rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .app {
+    padding: 15px;
+  }
+  
+  .barbershop-logo {
+    height: 60px;
+    max-width: 150px;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .header p {
+    font-size: 1rem;
+  }
+  
+  .wheel {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .prize-text {
+    font-size: 0.8rem;
+    top: 15px;
+  }
+  
+  .spin-button {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+  
+  .result-content {
+    padding: 30px 20px;
+    margin: 20px;
+  }
+  
+  .result-content h2 {
+    font-size: 1.5rem;
+  }
+  
+  .prize-result {
+    font-size: 1.2rem;
+    padding: 15px;
+  }
+  
+  .instagram-button {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wheel {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .prize-text {
+    font-size: 0.7rem;
+    top: 10px;
+  }
+  
+  .barbershop-logo {
+    height: 50px;
+    max-width: 120px;
+  }
+  
+  .header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .wheel-pointer {
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 24px solid #ffffff;
+  }
+}
