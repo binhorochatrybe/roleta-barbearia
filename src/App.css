@@ -232,6 +232,43 @@
   font-style: italic;
 }
 
+.deadline-note {
+  font-size: 0.9rem;
+  color: #ffa500;
+  margin-top: 10px;
+  font-weight: 500;
+  text-align: center;
+  background: rgba(255, 165, 0, 0.1);
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 165, 0, 0.3);
+}
+
+.validation-warning {
+  font-size: 0.9rem;
+  color: #ff4444;
+  margin-top: 10px;
+  font-weight: 600;
+  text-align: center;
+  background: rgba(255, 68, 68, 0.1);
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 68, 68, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 68, 68, 0);
+  }
+}
+
 /* Instruções do Instagram */
 .instagram-instructions {
   margin-top: 25px;

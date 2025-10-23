@@ -190,6 +190,12 @@ function App() {
                 <p className="prize-note">
                   ⚠️ Guarde este resultado! Você só pode jogar uma vez.
                 </p>
+                <p className="deadline-note">
+                  ⏰ Prazo para resgatar o prêmio: 1 mês a partir de hoje
+                </p>
+                <p className="validation-warning">
+                  ⚡ IMPORTANTE: O prêmio deve ser validado em 24h! Poste nos stories do Instagram e marque @primordiobarbearia para validar seu prêmio.
+                </p>
               </div>
             </div>
           </div>
